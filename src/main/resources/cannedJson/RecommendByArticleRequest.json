@@ -1,0 +1,26 @@
+{
+  "sort": "-score",
+  "limit": 40,
+  "offset": 20,
+  "query-filters": {
+    "type": [
+      "article",
+      "image"
+    ],
+    "source": [
+      "Reuters",
+      "PA"
+    ],
+    "date-from": "2017-10-17T10:00:00Z",
+    "date-to": "2017-10-18T10:00:00Z",
+    "channel": [
+      "news",
+      "football"
+    ]
+  },
+  "query-object": {
+    "headline": "Lorem ipsum dolor sit amet",
+    "channel": "news",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac sollicitudin erat, sit amet efficitur ligula. Pellentesque eget convallis elit. Nam enim neque, suscipit placerat tempus quis, iaculis id neque. Ut id ante quis magna euismod accumsan."
+  }
+}

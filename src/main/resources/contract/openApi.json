@@ -1,113 +1,49 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Login for FB-IA with TMG account/FB acount & New Subscription Purchase with TMG account/FB account",
-    "description": "Set of API endpoints to authenticate and verify authorization of user credentials whether user has subscription to access premium content or not",
-    "version": "0.0.1"
+    "description": "TMG Recommender API definition",
+    "version": "0.1",
+    "title": "TMG Recommender",
+    "termsOfService": "",
+    "contact": {
+      "email": "richard.spence@telegraph.co.uk"
+    }
   },
-  "host": "fb-auth.awspreprod.telegraph.co.uk",
+  "basePath": "/v1",
   "schemes": [
-    "https"
+    "http"
   ],
-  "basePath": "",
   "paths": {
-    "/tmgauth": {
-      "options" : {
+    "/recommend-articles/by-article": {
+      "post": {
+        "summary": "Get Article recommendations based on an Article",
         "description": "",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "TMGAuth"
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "description": "authenticate the user credentials(email and pwd) to validate whether user allowed to access premium content or not. The credentials will be supplied in the request body.",
         "parameters": [
           {
-            "name": "Credentials",
             "in": "body",
-            "description": "Input user credentials",
+            "name": "body",
+            "description": "This is the request object that passes the Article we want recommendations based on and some query parameters and filters",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/credentials"
+              "$ref": "#/definitions/def-request-json"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Whether user is subscribed or not_subscribed",
+            "description": "success",
             "schema": {
-              "$ref": "#/definitions/status"
+              "$ref": "#/definitions/def-response-json"
             }
           },
-          "401": {
-            "description": "Credentials do not match or user is unauthorized",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          },
-          "503": {
-            "description": "Service Unavailable",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          }
-        }
-      }
-    },
-    "/fbauth": {
-      "post": {
-        "tags": [
-          "FBAuth"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "description": "authenticate the user credentials(email and pwd) to validate whether user allowed to access premium content or not. The credentials will be supplied in the request body.",
-        "parameters": [
-          {
-            "name": "FBCredentials",
-            "in": "body",
-            "description": "Input user credentials",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/fbcredentials"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Whether user is subscribed or not_subscribed",
-            "schema": {
-              "$ref": "#/definitions/status"
-            }
-          },
-          "401": {
-            "description": "Credentials do not match or user is unauthorized",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          },
-          "503": {
-            "description": "Service Unavailable",
+          "400": {
+            "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/error"
             }
@@ -117,68 +53,187 @@
     }
   },
   "definitions": {
-    "credentials": {
-      "type": "object",
-      "properties": {
-        "emailId": {
-          "type": "string",
-          "format": "email"
-        },
-        "password": {
-          "type": "string",
-          "format": "password"
-        },
-        "accountLinkingToken": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "emailId",
-        "password",
-        "accountLinkingToken"
-      ]
-    },
-    "fbcredentials": {
-      "type": "object",
-      "properties": {
-        "oauthtoken": {
-          "type": "string"
-        },
-        "accountLinkingToken": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "oauthtoken",
-        "accountLinkingToken"
-      ]
-    },
-    "status": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string"
-        },
-        "accountLinkingToken": {
-          "type": "string"
-        },
-        "payload": {
-          "type": "string"
-        }
-      }
-    },
     "error": {
       "type": "object",
       "properties": {
         "code": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "example": 400
         },
-        "message": {
-          "type": "string"
+        "status": {
+          "type": "string",
+          "example": "Bad Request"
+        }
+      }
+    },
+    "def-request-json": {
+      "type": "object",
+      "properties": {
+        "sort": {
+          "type": "string",
+          "example": "-score"
         },
-        "fields": {
-          "type": "string"
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 40
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64",
+          "example": 20
+        },
+        "query-filters": {
+          "$ref": "#/definitions/def-query-filters"
+        },
+        "query-object": {
+          "$ref": "#/definitions/def-query-object-article"
+        }
+      }
+    },
+    "def-query-filters": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "article",
+            "image"
+          ]
+        },
+        "source": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "Reuters",
+            "PA"
+          ]
+        },
+        "date-from": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-10-17T10:00:00Z"
+        },
+        "date-to": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-10-18T10:00:00Z"
+        },
+        "channel": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "news",
+            "football"
+          ]
+        }
+      }
+    },
+    "def-query-object-article": {
+      "type": "object",
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "Lorem ipsum dolor sit amet"
+        },
+        "channel": {
+          "type": "string",
+          "example": "news"
+        },
+        "body": {
+          "type": "string",
+          "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac sollicitudin erat, sit amet efficitur ligula. Pellentesque eget convallis elit. Nam enim neque, suscipit placerat tempus quis, iaculis id neque. Ut id ante quis magna euismod accumsan."
+        }
+      }
+    },
+    "def-response-json": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": 200
+        },
+        "status": {
+          "type": "string",
+          "example": "Success"
+        },
+        "result-count": {
+          "type": "integer",
+          "format": "int64",
+          "example": 4
+        },
+        "data": {
+          "$ref": "#/definitions/def-article-recommendation-array"
+        }
+      }
+    },
+    "def-article-recommendation-array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/def-article-recommendation"
+      }
+    },
+    "def-article-recommendation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "f7296379-b0c5-11e7-a470-06401c187d50"
+        },
+        "score": {
+          "type": "number",
+          "format": "float",
+          "example": 0.5
+        },
+        "type": {
+          "type": "string",
+          "example": "article"
+        },
+        "headline": {
+          "type": "string",
+          "example": "Game of Thrones cast 'won't be given scripts' for season 8"
+        },
+        "url": {
+          "type": "string",
+          "format": "url",
+          "example": "http://www.telegraph.co.uk/tv/2017/10/14/game-thrones-cast-wont-given-scripts-season-8/"
+        },
+        "thumbnail": {
+          "type": "string",
+          "format": "url",
+          "example": "http://www.telegraph.co.uk/content/dam/tv/2017/08/28/TELEMMGLPICT000136302403-thumbnail_trans_NvBQzQNjv4BqaRL1kC4G7DT9ZsZm6Pe3PehAFAI_f6ud569StXyOKH0.jpeg"
+        },
+        "pubdate": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-10-14T11:38:36Z"
+        },
+        "channel": {
+          "type": "string",
+          "example": "tv"
+        },
+        "source": {
+          "type": "string",
+          "example": "tmg"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "Sophie Christie",
+            "Richard Dyson"
+          ]
         }
       }
     }

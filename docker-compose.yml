@@ -1,0 +1,6 @@
+version: '2'
+services:
+  mock:
+    image: "rodolpheche/wiremock:2.6.0-alpine"
+    ports:
+      - "8081:8080"
