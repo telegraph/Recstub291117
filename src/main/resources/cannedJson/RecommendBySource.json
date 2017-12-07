@@ -1,0 +1,55 @@
+{
+  "code" : 200,
+  "status" : "success",
+  "result-count" : 4,
+  "data" : [
+    {
+      "id" : "xxxxxxxx-content-id",
+      "score" : 0.5,
+      "type" : "article",
+      "headline" : "This is the Headline",
+      "url" : "http://www.telegraph.co.uk/....",
+      "thumbnail" : "http://....jpg",
+      "pubdate" : "2017-10-17T10:12:50Z",
+      "channel" : "news",
+      "source" : "Reuters",
+      "authors" : [ "Sophie Christie" , "Richard Dyson" ]
+    },
+    {
+      "id" : "xxxxxxxx-content-id",
+      "score" : 0.4,
+      "type" : "article",
+      "headline" : "This is another the Headline",
+      "url" : "http://www.telegraph.co.uk/....",
+      "thumbnail" : "http://....jpg",
+      "pubdate" : "2017-09-05T10:00:50Z",
+      "channel" : "business",
+      "source" : "Reuters",
+      "authors" : [ "Richard Evans" ]
+    },
+    {
+      "id" : "xxxxxxxx-content-id",
+      "score" : 0.3,
+      "type" : "article",
+      "headline" : "This is the third Headline",
+      "url" : "http://www.telegraph.co.uk/....",
+      "thumbnail" : "http://....jpg",
+      "pubdate" : "2017-10-17T10:50:50Z",
+      "channel" : "football",
+      "source" : "Reuters",
+      "authors" : [ "Jamie Carragher" ]
+    },
+    {
+      "id" : "xxxxxxxx-content-id",
+      "score" : 0.2,
+      "type" : "article",
+      "headline" : "This is the 4th Headline",
+      "url" : "http://www.telegraph.co.uk/....",
+      "thumbnail" : "http://....jpg",
+      "pubdate" : "2017-10-13T10:12:50Z",
+      "channel" : "art",
+      "source" : "Reuters",
+      "authors" : [ "Hannah Furness" ]
+    }
+  ]
+}
