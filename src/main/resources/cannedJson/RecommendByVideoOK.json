@@ -6,7 +6,7 @@
     {
       "id" : "xxxxxxxx-mam id",
       "score" : 0.5,
-      "type" : "image",
+      "type" : "Video",
       "headline" : "This is the Headline",
       "url" : "http://www.telegraph.co.uk/....",
       "thumbnail" : "http://....jpg",
@@ -18,7 +18,7 @@
     {
       "id" : "xxxxxxxx-mam id",
       "score" : 0.4,
-      "type" : "image",
+      "type" : "Video",
       "headline" : "This is another the Headline",
       "url" : "http://www.telegraph.co.uk/....",
       "thumbnail" : "http://....jpg",
@@ -30,7 +30,7 @@
     {
       "id" : "xxxxxxxx-mam id",
       "score" : 0.3,
-      "type" : "image",
+      "type" : "Video",
       "headline" : "This is the third Headline",
       "url" : "http://www.telegraph.co.uk/....",
       "thumbnail" : "http://....jpg",
@@ -42,7 +42,7 @@
     {
       "id" : "xxxxxxxx-mam id",
       "score" : 0.2,
-      "type" : "image",
+      "type" : "Video",
       "headline" : "This is the 4th Headline",
       "url" : "http://www.telegraph.co.uk/....",
       "thumbnail" : "http://....jpg",
